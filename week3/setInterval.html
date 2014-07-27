@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"
+<meta name = "viewport" content = "width = device-width initial-scale = 1, user-scalable = no">
+<style type="text/css">
+div {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+#container {
+	width: 100%;
+	height: 300px;
+}
+
+#content {
+	width: 90%;
+	height: 90%;
+	margin: 2% 5%;
+	z-index: 10;
+}
+
+#square {
+	position:relative;
+	display: inline-block;
+	background-color: #fff;
+	width: 15%;
+	height: 100%;
+}
+
+#start {
+	float: left;
+	margin-left: 5%;
+}
+
+#stop {
+	float: right;
+	margin-right: 5%;
+}
+
+</style>
+</head>
+
+<body>
+<div id="wrap">
+	<header>
+		<div>week3 - 131036 서동규<div>
+		<div>
+			<a href="setInterval.html">setInterval</a>
+			<a href="requestAnimationFrame.html">requestAnimationFrame</a>
+			<a href="css.html">css</a>
+		</div>
+	</header>
+	<div id="container">
+		<div id="content">
+			<div id="square"></div>
+		</div>
+		<div class="btn">
+			<div id="start">start</div>
+			<div id="stop">stop</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+var Move = {
+	direction: "right",
+
+	start: function() {
+		this.el = document.querySelector("#square");
+		this.el.style.right = "0%";
+		this.rightPos = parseInt(this.el.style.right);
+
+		this.id = setInterval(this.callback.bind(this), 13.7);
+
+	},
+
+	shutdown: function() {
+
+		if (this.id !== undefined) {
+			clearInterval(this.id);
+			this.id = undefined;
+		}
+
+	},
+
+	callback: function() {
+
+		var r = Math.floor(Math.random() * 255);
+		var g = Math.floor(Math.random() * 255);
+		var b = Math.floor(Math.random() * 255);
+		this.el.parentNode.style.background = "rgb(" + r + ", " + g + ", " + b + ")";
+  
+
+		if (this.direction == "left") {
+			this.moveLeft();
+
+		} else {
+			this.moveRight();
+			
+		}
+
+	},
+
+	moveLeft: function() {
+
+		if (this.rightPos >= 0) {
+			this.reverse();
+
+		} else {
+			this.rightPos += 1;
+			this.el.style.right = this.rightPos + "%";
+
+		}
+	},
+
+	moveRight: function() {
+		
+		if (this.rightPos < -85) {
+			this.reverse();
+
+		} else {
+			this.rightPos -= 1;
+			this.el.style.right = this.rightPos + "%";
+
+		}
+		
+	},
+
+	reverse: function() {
+
+		if (this.direction == "left") {
+			this.direction = "right";
+
+		} else {
+			this.direction = "left";
+
+		}
+	}
+
+};
+
+document.addEventListener("touchstart", function(evt){
+	var targetEl = evt.target;
+	var id = targetEl.id;
+
+	if (id == "start") {
+		Move.start();
+
+	} else if (id == "stop") {
+		Move.shutdown();
+
+	}
+
+}, false);
+
+</script>
+
+</body>
+<html>
+

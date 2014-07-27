@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"
+<meta name = "viewport" content = "width = device-width initial-scale = 1, user-scalable = no">
+<style type="text/css">
+div {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+#container {
+	width: 100%;
+	height: 300px;
+}
+
+#content {
+	width: 90%;
+	height: 90%;
+	margin: 2% 5%;
+	z-index: 10;
+}
+
+#square {
+	position:relative;
+	display: inline-block;
+	/*background-color: #fff;*/
+	background-color: orange;
+	width: 15%;
+	height: 100%;
+}
+
+#start {
+	float: left;
+	margin-left: 5%;
+}
+
+#stop {
+	float: right;
+	margin-right: 5%;
+}
+
+.move-right {
+	-webkit-transition: -webkit-transform 1s ease-in-out;
+		    transition: transform 1s ease-in-out;
+	-webkit-transform: translate(232.56px,0px);
+			transform: translate(232.56px,0px);
+}
+.move-left {
+	-webkit-transition: -webkit-transform 1s ease-in-out;
+		    transition: transform 1s ease-in-out;
+	-webkit-transform: translate(0px,0px);
+			transform: translate(0px,0px);
+}
+
+</style>
+</head>
+
+<body>
+<div id="wrap">
+	<header>
+		<div>week3 - 131036 서동규<div>
+		<div>
+			<a href="setInterval.html">setInterval</a>
+			<a href="requestAnimationFrame.html">requestAnimationFrame</a>
+			<a href="css.html">css</a>
+		</div>
+	</header>
+	<div id="container">
+		<div id="content">
+			<div id="square"></div>
+		</div>
+		<div class="btn">
+			<div id="start">start</div>
+			<div id="stop">stop</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+
+document.addEventListener("touchstart", function(evt){
+	var targetEl = evt.target;
+	var id = targetEl.id;
+	var squareEl = document.querySelector("#square");
+
+	// debugger;
+	if (id == "start") {
+		squareEl.classList.add("move-right");
+
+	} else if (id == "stop") {
+		squareEl.classList.remove("move-right");
+		squareEl.classList.remove("move-left");
+
+	}
+
+}, false);
+
+document.addEventListener("transitionend", function(evt) {
+	var targetEl = evt.target;
+
+	if (targetEl.classList.contains("move-right")) {
+		targetEl.classList.remove("move-right");
+		targetEl.classList.add("move-left");	
+
+	} else {
+		targetEl.classList.remove("move-left");
+		targetEl.classList.add("move-right");	
+
+	}
+
+}, false);
+
+</script>
+
+</body>
+<html>
+
