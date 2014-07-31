@@ -68,6 +68,7 @@ div {
 
 var Move = {
 	direction: "right",
+	interval: 1,
 
 	start: function() {
 		this.flag = false;
@@ -75,14 +76,11 @@ var Move = {
 		this.el.style.right = "0%";
 		this.rightPos = parseInt(this.el.style.right);
 
-		// this.id = setInterval(this.callback.bind(this), 13.7);
-		requestAnimationFrame(this.callback.bind(this));
-		this.el.style.right = "0%";
-		
+		this.id = requestAnimationFrame(this.callback.bind(this));
 
 	},
 
-	shutdown: function() {
+	stop: function() {
 
 		if (!this.flag) {
 			this.flag = true;
@@ -91,74 +89,44 @@ var Move = {
 	},
 
 	callback: function() {
-		// debugger;
-		var r = Math.floor(Math.random() * 255);
-		var g = Math.floor(Math.random() * 255);
-		var b = Math.floor(Math.random() * 255);
-		this.el.parentNode.style.background = "rgb(" + r + ", " + g + ", " + b + ")";
-
-		if (this.direction == "left") {
-			this.moveLeft();
-
-		} else {
-			this.moveRight();
-
-		}
+		this.changeBackground();
+		this.move();
 
 		if (!this.flag) {
-			requestAnimationFrame(this.callback.bind(this));
+			clearTimeout(this.id);
+			this.id = requestAnimationFrame(this.callback.bind(this));
 		}
 
 	},
 
-	moveLeft: function() {
+	move: function() {
 
-		if (this.rightPos >= 0) {
-			this.reverse();
-
-		} else {
-			this.rightPos += 1;
-			this.el.style.right = this.rightPos + "%";
-
+		if ((this.direction == "left") ? (this.rightPos >= 0) : (this.rightPos < -85)) {
+			this.direction = (this.direction == "left") ? "right" : "left";
 		}
+
+		this.rightPos += (this.direction == "left") ? this.interval : -this.interval;
+		this.el.style.right = this.rightPos + "%";
 	},
 
-	moveRight: function() {
-		
-		if (this.rightPos < -85) {
-			this.reverse();
+	changeBackground: function() {
+		this.el.parentNode.style.background = "rgb(" + this.getRandom(255) + ", " + this.getRandom(255) + ", " + this.getRandom(255) + ")";
 
-		} else {
-			this.rightPos -= 1;
-			this.el.style.right = this.rightPos + "%";
-
-		}
-		
 	},
 
-	reverse: function() {
+	getRandom: function(limit) {
 
-		if (this.direction == "left") {
-			this.direction = "right";
+		return Math.floor(Math.random() * limit);
 
-		} else {
-			this.direction = "left";
-
-		}
 	}
 
 };
 
 document.addEventListener("touchstart", function(evt){
-	var targetEl = evt.target;
-	var id = targetEl.id;
+	var method = evt.target.id;
 
-	if (id == "start") {
-		Move.start();
-
-	} else if (id == "stop") {
-		Move.shutdown();
-
+	if (method == "stop" || method == "start") {
+		Move[method]();	
 	}
 
 }, false);
