@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>Test</title>
+	
+	<style type="text/css">
+		body{
+			margin: 0px;
+		}
+		#parent{
+			width : 100%;
+			overflow: hidden;
+		}
+		ul{
+			height: 100%;
+			list-style:none;
+			padding: 0px;	
+			margin: 0px;
+			position: relative;
+		}
+		ul li{
+			float: left;
+			height: 100%;	
+		}
+		.red{
+			background-color: red;
+		}
+		.orange{
+			background-color: orange;
+		}
+		.yellow{
+			background-color: yellow;
+		}
+		.green{
+			background-color: green;
+		}
+		.blue{
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+
+	
+<div id="parent">
+	<ul>
+		<li class="red"></li>
+		<li class="orange"></li>
+		<li class="yellow"></li>
+		<li class="green"></li>
+		<li class="blue"></li>
+	</ul>
+</div>
+
+<script>
+	var Flicking = {
+		"init" : function() {
+			this.index = 0;
+			this.width = window.innerWidth;
+			this.halfWidth = this.width/2;
+			this.currentLeft = 0;
+			this.container = document.querySelector("#parent ul");
+			this.fittingContent(this.width, window.innerHeight);
+			this.eventBind();
+		},
+		"fittingContent" : function(width,height){
+			var style = document.createElement('style');
+			style.type = 'text/css';
+			
+			var str = '#parent { height: '+height+'px; }'+
+					  'ul { width: '+(width*5)+'px; }'+
+					  'ul li { width: '+width+'px; }';
+			style.innerHTML = str;
+			document.getElementsByTagName('head')[0].appendChild(style);
+		},
+
+		"eventBind":function(){
+			this.container.addEventListener("touchstart",this.touchstart.bind(this));
+			this.container.addEventListener("touchmove",this.touchmove.bind(this));
+			this.container.addEventListener("touchend",this.touchend.bind(this));
+		},
+
+		"touchstart" : function(e){
+			this.index = e.touches[0].clientX;
+			
+			this.currentLeft = (this.container.style.left === "")? 0 : parseInt(this.container.style.left);
+		},
+
+
+		// 16ms 미만 호출 거부하려면...
+		"touchmove" : function(e){
+			e.preventDefault();
+			
+			var deltaX = e.touches[0].clientX - this.index;
+			this.container.style.left = this.currentLeft + deltaX + "px";
+			
+		},
+
+		"touchend" : function(e){
+			var deltaX = e.changedTouches[0].clientX - this.index;
+
+			// restoration
+			var distance = -deltaX;
+			var absDeltaX = Math.abs(deltaX);
+			this.currentLeft = this.currentLeft + deltaX;
+
+			// flicking
+			if (absDeltaX >= this.halfWidth && this.currentLeft < 0 && this.currentLeft > -this.width*4) {
+				distance = (deltaX >= 0)? this.width - absDeltaX : absDeltaX - this.width;
+			}
+
+			setTimeout(this.animate.bind(this, distance), 13.7);
+
+		},
+
+		// 애니메이션이 종료되기 전에 터치 이벤트가 발생, 서로 겹쳐서 문제가 생김.
+		animate : function(distance){
+			// debugger;
+			if (distance == 0) {
+				this.currentLeft = 0;
+				this.index = 0;
+				return;
+			}
+
+			var interval = (distance < 0) ? -5 : 5;
+			if (Math.abs(distance) <= 5) {
+				interval = distance;
+			}
+
+			distance -= interval;
+			this.currentLeft += interval;
+			this.container.style.left = this.currentLeft + "px";
+
+			setTimeout(this.animate.bind(this, distance), 13.7);
+		}
+	};
+
+	Flicking.init();
+	
+</script>
+</body>
+</html>
+
