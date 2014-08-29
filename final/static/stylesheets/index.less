@@ -1,0 +1,137 @@
+@sidebar-width: 150px;
+
+@header-exist: inline;
+@header-height: 50px;
+
+@footer-exist: none;
+@footer-height: 0px;
+
+/* css function */
+
+/* h-shadow v-shadow blur spread color */
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @spread: 0, @color: #000) {
+ 	-webkit-box-shadow: @arguments;
+ 	   -moz-box-shadow: @arguments;
+			box-shadow: @arguments;
+}
+
+
+
+/* layout rules */
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.page {
+	position: relative;
+	height: 100%;
+
+	left: 150px;
+}
+
+.sidebar {
+	/* layout rules */
+	display: inline-block;;
+	position: absolute;
+	width: @sidebar-width;
+	height: 100%;
+	left: -@sidebar-width;
+	z-index: 1;
+	/*margin-left: -@sidebar-width;*/
+	
+	/* theme rules */
+	.content {
+		height: 100%;
+		padding: 5px 5px 0 5px;
+		background-color: rgba(150,100,100,.6);
+		overflow:scroll;
+	}
+}
+
+.container {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+
+	/* header */
+	.header {
+		/* layout rules */
+		display: @header-exist;
+		position: fixed;
+		width: 100%;
+		height: @header-height;
+
+		/* theme rules */
+		.box-shadow(0, 2px, 4px, 0, rgba(0,0,0,.15));
+
+		background: rgba(245,245,245,.85);
+
+
+		/* component */
+		.component {
+			/* layout rules */
+			display: inline-block;
+			margin: 1px 1px 1px 0;
+
+			/* theme rules */
+			
+		}
+
+		/* menu */
+		.menu {
+			
+			.menu-button {
+				position: relative;
+				top: 11px;
+
+				.bar {
+					background-color: black;
+					width: 18px;
+					height: 5px;					
+				}
+
+				.middle {
+					margin: 5px 0;
+				}
+W
+			}
+			
+		}
+	}
+
+	/* body */
+	.body {
+		/* layout rules */
+		width: 100%;
+		height: 100%;
+
+		padding-top: @header-height;
+		
+		/* theme rules */
+		/*overflow: hidden;*/
+		.content {
+			padding: 5px 5px 0 5px;
+			background-color: rgba(0,0,0,.1);
+
+		}
+
+	}
+
+
+	/* footer */
+	.footer {
+		/* layout rules */
+		display: @footer-exist;
+		width: @footer-height;
+		position: fixed;
+		bottom: 0px;
+		
+	}
+}
+	
+
+
+
+
+
