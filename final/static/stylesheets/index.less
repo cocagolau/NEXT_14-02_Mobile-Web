@@ -15,6 +15,29 @@
 			box-shadow: @arguments;
 }
 
+/*
+.transform (@string){
+	-webkit-transform: @string;
+	   -moz-transform: @string;
+		-ms-transform: @string;
+		 -o-transform: @string;
+}
+*/
+
+/*<property> <duration> <timing-function> <delay>*/
+.transition (@property: transform, @duration: 1s, @timing-function: easy-in-out, @delay: 0s) {
+	-webkit-transition: @arguments;
+	   -moz-transition: @arguments;
+		-ms-transition: @arguments;
+		 -o-transition: @arguments;
+}
+.translate (@x: 0, @y: 0) {
+	-webkit-transform: translate(@x, @y);
+	   -moz-transform: translate(@x, @y);
+		-ms-transform: translate(@x, @y);
+		 -o-transform: translate(@x, @y);
+}
+
 
 
 /* layout rules */
@@ -26,19 +49,25 @@ html, body {
 .page {
 	position: relative;
 	height: 100%;
+	.transition(transform, 0.5s, ease-in-out);
+}
 
-	left: 150px;
+.open {
+	.translate(@sidebar-width, 0);
+}
+
+.close {
+	.translate(0, 0);
 }
 
 .sidebar {
 	/* layout rules */
-	display: inline-block;;
+	display: inline-block;
 	position: absolute;
 	width: @sidebar-width;
 	height: 100%;
 	left: -@sidebar-width;
 	z-index: 1;
-	/*margin-left: -@sidebar-width;*/
 	
 	/* theme rules */
 	.content {
