@@ -10,10 +10,9 @@
 
  	/*
 	@param: config <object>
-	config.viewSelector: <string: selector>
-	config.buttonSelector: <string: selector>
+		config.viewSelector: <string: selector>
+		config.buttonSelector: <string: selector>
  	*/
-
  	function Sidebar(config) {
  		this.viewEl = null;
  		this.buttonEl = null;
