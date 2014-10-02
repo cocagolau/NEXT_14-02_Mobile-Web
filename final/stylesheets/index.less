@@ -1,0 +1,88 @@
+/* css macro */
+
+/* h-shadow v-shadow blur spread color */
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @spread: 0, @color: #000) {
+ 	-webkit-box-shadow: @arguments;
+ 	   -moz-box-shadow: @arguments;
+			box-shadow: @arguments;
+}
+
+/*
+.transform (@string){
+	-webkit-transform: @string;
+	   -moz-transform: @string;
+		-ms-transform: @string;
+		 -o-transform: @string;
+}
+*/
+
+/*<property> <duration> <timing-function> <delay>*/
+.transition (@property: transform, @duration: 1s, @timing-function: ease-in-out, @delay: 0s) {
+	-webkit-transition: @arguments;
+	   -moz-transition: @arguments;
+		-ms-transition: @arguments;
+		 -o-transition: @arguments;
+}
+.translate (@x: 0, @y: 0) {
+	-webkit-transform: translate(@x, @y);
+	   -moz-transform: translate(@x, @y);
+		-ms-transform: translate(@x, @y);
+		 -o-transform: translate(@x, @y);
+}
+
+
+
+/* layout rules */
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+
+.article {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	.page {
+		position: relative;
+		width: 100%;
+		height: 90%;
+	}
+
+	.previous {
+		display: none;
+		background-color: rgba(200,200,200,0.8);
+	}
+
+	.current {
+		top: 0px;
+		background-color: rgba(200,100,100,0.8);
+		z-index: 10;
+	}
+
+	.next {
+		bottom: 0%;
+		background-color: rgba(100,100,200,0.8);
+	}
+}
+
+
+
+.move {
+	.transition(top, .5s, ease-out);
+}
+
+.up {
+	top: -530px !important;
+}
+.down {
+	top: 530px !important;
+}
+
+.restore {
+	top: 0px !important;
+}
+
+
+

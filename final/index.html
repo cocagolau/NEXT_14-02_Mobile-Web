@@ -1,122 +1,36 @@
-<!DOCTYPE html>
 <html lang="ko">
-
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" />
+	<!-- mobile viewport -->
 	<meta name="viewport" content="width=device-width, initial-zoom=1, user-scalable=no">
-	<link type="text/css" rel="stylesheet" href="static/stylesheets/base.css" />
-	<link type="text/css" rel="stylesheet/less" href="static/stylesheets/index.less" />
-	<title>Mobile-web test page</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"> -->
+
+	<!-- stylesheet -->
+	<link type="text/css" rel="stylesheet" href="stylesheets/base.css" />
+	<link type="text/css" rel="stylesheet/less" href="stylesheets/index.less" />
+
+	<!-- template -->
+	<script type="text/template" id="page-template">
+		<div><%= title %></div>
+		<div><%= content %></div>
+		<div><%= addr %></div>
+		<div><%= tel %></div>
+	</script>
 </head>
 
 <body>
-	<div class="page">
-
-		<!-- container -->
-		<div class="sidebar">
-			<div class="content">
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-				content<br>
-			</div>
-		</div>
-
-		<!-- container -->
-		<div class="container">
-			<!-- header -->
-			<div class="header">
-				<div class="component menu">
-					<div class="menu-button">
-						<div class="bar"></div>
-						<div class="bar middle"></div>
-						<div class="bar"></div>
-					</div>
-
-
-				</div>
-				<div class="component logo">L</div>
-				<div class="component sign">S</div>
-			</div>
-
-			<!-- body -->
-			<div class="body">
-				<div class="content">
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-					content<br>
-				</div>
-			</div>
-
-			<!-- footer -->
-			<div class="footer">
-				footer
-			</div>
-		</div>
+	<div id="bg"></div>
+	<div class="article">
+		<div class="page previous" data-id="previous"></div>
+		<div class="page current" data-id="current"></div>
+		<div class="page next" data-id="next"></div>
 	</div>
-<script type="text/javascript" src="static/javascripts/app/app.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.4/less.min.js"></script>
-</body>
+	
+	<script src="scripts/lib/CAGE.util.js"></script>
+	<script src="scripts/APP/app.js"></script>
 
+	<!-- less -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.4/less.min.js"></script>
+</body>
 </html>
